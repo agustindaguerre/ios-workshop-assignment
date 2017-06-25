@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import XLPagerTabStrip
 
-class ViewController: UIViewController {
+class ViewController: ButtonBarPagerTabStripViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
+    
+    override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+        //return [HomeViewController(), SearchViewController(), FavoritesViewController(), RandomViewController()]
+        
+        let homeStoryboard = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        let searchStoryBoard = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search")
+        let favoritesStoryBoard = UIStoryboard(name: "Favorites", bundle: nil).instantiateViewController(withIdentifier: "Favorites")
+        let randomStoryBoard = UIStoryboard(name: "Random", bundle: nil).instantiateViewController(withIdentifier: "Random")
+        return [homeStoryboard, searchStoryBoard, favoritesStoryBoard, randomStoryBoard]
+    }
 }
-
