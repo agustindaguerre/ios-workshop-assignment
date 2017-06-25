@@ -20,7 +20,6 @@ class ViewController: ButtonBarPagerTabStripViewController {
     }
     
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        //return [HomeViewController(), SearchViewController(), FavoritesViewController(), RandomViewController()]
         
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
         let searchStoryBoard = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search")
