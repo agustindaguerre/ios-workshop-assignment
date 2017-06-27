@@ -120,6 +120,38 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		430F44C51F021529007101CC /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				43E8CFB51EFAB2D90040A982 /* Main.storyboard */,
+				43E8CFBD1EFAB2D90040A982 /* LaunchScreen.storyboard */,
+				5126443A1EFF4A3300B6D2F8 /* Home.storyboard */,
+				5126443C1EFF4A4300B6D2F8 /* Search.storyboard */,
+				5126443E1EFF4A5500B6D2F8 /* Favorites.storyboard */,
+				512644401EFF4A6500B6D2F8 /* Random.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		430F44C61F021539007101CC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				512644421EFF4A8F00B6D2F8 /* HomeViewController.swift */,
+				512644441EFF4BB100B6D2F8 /* SearchViewController.swift */,
+				512644461EFF4C2D00B6D2F8 /* FavoritesViewController.swift */,
+				512644481EFF4C7B00B6D2F8 /* RandomViewController.swift */,
+				43E8CFB31EFAB2D90040A982 /* ViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		430F44C71F021551007101CC /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Presenters;
+			sourceTree = "<group>";
+		};
 		43E8CFA51EFAB2D90040A982 = {
 			isa = PBXGroup;
 			children = (
@@ -145,21 +177,13 @@
 		43E8CFB01EFAB2D90040A982 /* Movies-app */ = {
 			isa = PBXGroup;
 			children = (
+				430F44C71F021551007101CC /* Presenters */,
+				430F44C61F021539007101CC /* ViewControllers */,
+				430F44C51F021529007101CC /* Storyboards */,
 				43E8CFB11EFAB2D90040A982 /* AppDelegate.swift */,
-				43E8CFB31EFAB2D90040A982 /* ViewController.swift */,
-				43E8CFB51EFAB2D90040A982 /* Main.storyboard */,
 				43E8CFBB1EFAB2D90040A982 /* Assets.xcassets */,
-				43E8CFBD1EFAB2D90040A982 /* LaunchScreen.storyboard */,
 				43E8CFC01EFAB2D90040A982 /* Info.plist */,
 				43E8CFB81EFAB2D90040A982 /* Movies_app.xcdatamodeld */,
-				5126443A1EFF4A3300B6D2F8 /* Home.storyboard */,
-				5126443C1EFF4A4300B6D2F8 /* Search.storyboard */,
-				5126443E1EFF4A5500B6D2F8 /* Favorites.storyboard */,
-				512644401EFF4A6500B6D2F8 /* Random.storyboard */,
-				512644421EFF4A8F00B6D2F8 /* HomeViewController.swift */,
-				512644441EFF4BB100B6D2F8 /* SearchViewController.swift */,
-				512644461EFF4C2D00B6D2F8 /* FavoritesViewController.swift */,
-				512644481EFF4C7B00B6D2F8 /* RandomViewController.swift */,
 			);
 			path = "Movies-app";
 			sourceTree = "<group>";
