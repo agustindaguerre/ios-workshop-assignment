@@ -7,7 +7,10 @@ target 'Movies-app' do
 
   # Pods for Movies-app
   pod 'XLPagerTabStrip', '~> 7.0'
-
+  pod 'Alamofire', '~> 4.4'
+  pod 'AlamofireObjectMapper', '~> 4.0'
+  pod 'AlamofireImage', '~> 3.1'
+  
   target 'Movies-appTests' do
     inherit! :search_paths
     # Pods for testing
@@ -17,5 +20,4 @@ target 'Movies-app' do
     inherit! :search_paths
     # Pods for testing
   end
-
 end
