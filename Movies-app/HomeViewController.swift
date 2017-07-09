@@ -10,7 +10,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let cellIdentifier = "cellId"
     var movies: [Movie] = []
-    var selectedItem: [String: Any]!
+    var selectedMovie: Movie?
     private let presenter = HomePresenter()
     
     
@@ -40,27 +40,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell = HomeTableViewCell(style: .default, reuseIdentifier: cellIdentifier)
         }
         
+        cell!.viewContainer.layer.cornerRadius = 2.0
+        
         let movie = movies[indexPath.row]
-        if let title = movie.title {
-            // Set title
-            cell!.labelTitle.text = title
+        // Set title
+        cell!.labelTitle.text = movie.title!
             
-            //Set image
-            let image = movie.poster!
-            let size = CGSize(width: 100.0, height: 123.5)
+        //Set image
+        let image = movie.poster!
+        let size = CGSize(width: 90, height: 115)
             
-            // Scale image to size disregarding aspect ratio
-            let scaledImage = image.af_imageScaled(to: size)
-            cell!.imagePoster.image = scaledImage
+        // Scale image to size disregarding aspect ratio
+        let scaledImage = image.af_imageScaled(to: size)
+        cell!.imagePoster.image = scaledImage
             
-            //Set plot
-            cell!.labelPlot.text = movie.plot!
-        }
+        //Set plot
+        cell!.labelPlot.text = movie.plot!
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        selectedItem = data[indexPath.row]
+        selectedMovie = movies[indexPath.row]
 //        performSegue(withIdentifier: "detailSegue", sender: self)
     }
     
