@@ -3,10 +3,29 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "HomeViewController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.textLabel">
+            </PersistentString>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "HomeViewController.viewDidLoad() -&gt; ():HomeViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "tableViewMovies">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedMovie">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -18,17 +37,6 @@
             </PersistentString>
             <PersistentString
                value = "movies[0].posterPath!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HomeViewController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:HomeViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cell.textLabel">
-            </PersistentString>
-            <PersistentString
-               value = "data">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
