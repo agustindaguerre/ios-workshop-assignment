@@ -61,12 +61,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedMovie = movies[indexPath.row]
-//        performSegue(withIdentifier: "detailSegue", sender: self)
+        performSegue(withIdentifier: "movieDetails", sender: self)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150;
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "movieDetails" {
+            let movieDetailsController = segue.destination as! MovieDetailsViewController
+            movieDetailsController.movieId = selectedMovie!.id
+        }
+    }
 }

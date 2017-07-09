@@ -29,6 +29,7 @@ class Movie : Mappable {
     var poster: Image?
     var plot: String?
     var runtime: Int?
+    var releaseDate: String?
 
     required init?(map: Map){
         
@@ -40,5 +41,6 @@ class Movie : Mappable {
         posterPath <- map["poster_path"]
         plot <- map["overview"]
         runtime <- map["runtime"]
+        releaseDate <- map["release_date"]
     }
 }

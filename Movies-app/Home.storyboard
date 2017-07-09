@@ -103,11 +103,20 @@
                     </view>
                     <connections>
                         <outlet property="tableViewMovies" destination="tbu-nI-eel" id="iEc-Z3-i0n"/>
+                        <segue destination="cGr-b6-n5F" kind="show" identifier="movieDetails" id="ZaE-zn-e3O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrA-Tw-C8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="221.59999999999999" y="103.89805097451276"/>
+            <point key="canvasLocation" x="303" y="92"/>
+        </scene>
+        <!--MovieDetails-->
+        <scene sceneID="ty6-Ew-wQA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MovieDetails" id="cGr-b6-n5F" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wiz-1I-eeb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1417" y="-56"/>
         </scene>
     </scenes>
 </document>
