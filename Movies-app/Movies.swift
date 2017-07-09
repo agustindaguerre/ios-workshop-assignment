@@ -26,13 +26,18 @@ class Movie : Mappable {
     var id: Int?
     var title: String?
     var posterPath: String?
+    var backdropPath: String?
+    var backdropImage: Image?
     var poster: Image?
     var plot: String?
     var runtime: Int?
     var releaseDate: String?
+    var genres: [Genre]
+    var voteAverage: Float?
+    var voteCount: Int?
 
-    required init?(map: Map){
-        
+    required init?(map: Map) {
+        genres = []
     }
     
     func mapping(map: Map) {
@@ -42,5 +47,22 @@ class Movie : Mappable {
         plot <- map["overview"]
         runtime <- map["runtime"]
         releaseDate <- map["release_date"]
+        genres <- map["genres"]
+        voteAverage <- map["vote_average"]
+        voteCount <- map["vote_count"]
+        backdropPath <- map["backdrop_path"]
+    }
+}
+
+class Genre : Mappable {
+    var id: Int?
+    var name: String?
+    
+    required init?(map: Map) {
+    }
+    
+    func mapping(map: Map) {
+        id <- map["id"]
+        name <- map["name"]
     }
 }
