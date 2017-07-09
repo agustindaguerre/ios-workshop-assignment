@@ -10,12 +10,14 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import AlamofireImage
 
 class MoviesApi {
     static let apiToken = "91773ba4be3fe63dcdfd1f6b487eb2ce"
     static let baseUrl = "https://api.themoviedb.org/3"
     static let discoverMovie = "/discover/movie"
     static let nowPlaying = "/movie/now_playing"
+    static let imageUrl = "https://image.tmdb.org/t/p/w500"
     
     static func getPlayingMovies(completionHandler: @escaping ([Movie]) -> Void) {
         let url = "\(baseUrl)\(nowPlaying)"
@@ -24,11 +26,44 @@ class MoviesApi {
         Alamofire.request(url, parameters: parameters).responseObject { (response: DataResponse<MoviesResponse>) in
             if let result = response.result.value {
                 print("JSON: \(result)") // serialized json response
-                completionHandler(result.movies);
+                var movies = Array(result.movies[0...4])
+                let imagePaths = movies.map { movie in
+                    return movie.posterPath!
+                }
+                self.getMoviePosters(imagePaths: imagePaths) { (images: [(String, Image)]) in
+                    images.forEach { (path, image) in
+                        movies = movies.map { movie in
+                            if (movie.posterPath! == path) {
+                                movie.poster = image
+                            }
+                            return movie
+                        }
+                    }
+                    completionHandler(movies);
+                }
             }
             
             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                 print("Data: \(utf8Text)") // original server data as UTF8 string
+            }
+        }
+    }
+    
+    static private func getMoviePosters(imagePaths: [String], completionHandler: @escaping ([(String, Image)]) -> Void) {
+        var resultImages : [(String, Image)] = []
+        imagePaths.forEach { imagePath in
+            let url = imageUrl + imagePath
+            Alamofire.request(url).responseImage { response in
+                debugPrint(response)
+                debugPrint(response.result)
+                
+                if let image = response.result.value {
+                    print("image downloaded: \(image)")
+                }
+                resultImages.append((imagePath, response.result.value!))
+                if (resultImages.count == imagePaths.count) {
+                    completionHandler(resultImages)
+                }
             }
         }
     }

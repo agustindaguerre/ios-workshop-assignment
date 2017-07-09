@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import AlamofireImage
 
 class HomePresenter {
     private var homeView : HomeView?

@@ -10,12 +10,235 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Movies-app/HomeViewController.swift"
-            timestampString = "520918457.050369"
+            timestampString = "521308867.639153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521306056.092906"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "getPlayingMovies(completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.(getPlayingMovies (completionHandler : (Swift.Array&lt;Movies_app.Movie&gt;, Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306070.7248"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "1212">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.(getPlayingMovies (completionHandler : (Swift.Array&lt;Movies_app.Movie&gt;, Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306070.727295"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521308867.639153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "getPlayingMovies(completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.(getPlayingMovies (completionHandler : (Swift.Array&lt;Movies_app.Movie&gt;, Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306204.984042"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "1415">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.(getPlayingMovies (completionHandler : (Swift.Array&lt;Movies_app.Movie&gt;, Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()).(closure #1).(closure #2)"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306204.988003"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521308867.639153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "getMoviePosters(imagePaths:completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.(getMoviePosters in _891CBC0428954D3E7050326F0587FC1A) (imagePaths : Swift.Array&lt;Swift.String&gt;, completionHandler : (Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306225.325632"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "102">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.((getMoviePosters in _891CBC0428954D3E7050326F0587FC1A) (imagePaths : Swift.Array&lt;Swift.String&gt;, completionHandler : (Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306225.334415"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Movies_app.MoviesApi.((getMoviePosters in _891CBC0428954D3E7050326F0587FC1A) (imagePaths : Swift.Array&lt;Swift.String&gt;, completionHandler : (Swift.Array&lt;__ObjC.UIImage&gt;) -&gt; ()) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "Movies-app"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/agustindaguerre/moove-it-personal/iOS/Movies-app/Movies-app/MoviesApi.swift"
+                  timestampString = "521306225.336784"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "171">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521308867.639153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "getMoviePosters(imagePaths:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521308867.639153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "getMoviePosters(imagePaths:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521308867.639153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "getMoviePosters(imagePaths:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movies-app/MoviesApi.swift"
+            timestampString = "521308867.639153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getMoviePosters(imagePaths:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -8,11 +8,12 @@
 
 import Foundation
 import ObjectMapper
+import AlamofireImage
 
 class MoviesResponse : Mappable {
     var movies: [Movie]
     
-    required init?(map: Map){
+    required init?(map: Map) {
         movies = []
     }
     
@@ -24,7 +25,11 @@ class MoviesResponse : Mappable {
 class Movie : Mappable {
     var id: Int?
     var title: String?
-    
+    var posterPath: String?
+    var poster: Image?
+    var plot: String?
+    var runtime: Int?
+
     required init?(map: Map){
         
     }
@@ -32,5 +37,8 @@ class Movie : Mappable {
     func mapping(map: Map) {
         id <- map["id"]
         title <- map["title"]
+        posterPath <- map["poster_path"]
+        plot <- map["overview"]
+        runtime <- map["runtime"]
     }
 }
