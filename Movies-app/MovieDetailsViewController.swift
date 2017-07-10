@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     
     private let movieDetailPresenter = MovieDetailsPresenter()
     private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
+    private let messagePresenter = MessagePresenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,30 +91,8 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
 
     @IBAction func onFavoriteSelect(_ sender: Any) {
         let result = favoritePresenter.toggleFavorite(movieId: movieId!)
-        let view = MessageView.viewFromNib(layout: .CardView)
-        var config = SwiftMessages.Config()
-        config.dimMode = .gray(interactive: true)
-        config.duration = .seconds(seconds: 1.5)
-        view.button = nil
-        
-        // Add a drop shadow.
-        view.configureDropShadow()
-        
-        if (result.saved) {
-            // Theme message elements with the warning style.
-            view.configureTheme(.success)
-            let iconText = "✅"
-            view.configureContent(title: "Success!", body: result.message, iconText: iconText)
-            // Specify one or more event listeners to respond to show and hide events.
-        } else {
-            // Theme message elements with the warning style.
-            view.configureTheme(.error)
-            let iconText = "❌"
-            view.configureContent(title: "Error", body: result.message, iconText: iconText)
-        }
-        
         // Show the message.
         setFavoriteIcon()
-        SwiftMessages.show(config: config, view: view)
+        messagePresenter.showMessage(success: result.saved, message: result.message)
     }
 }

@@ -76,6 +76,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-RA-7aO" userLabel="Fav Button">
                                                             <rect key="frame" x="263" y="53.5" width="30" height="30"/>
                                                             <state key="normal" title="FAV"/>
+                                                            <connections>
+                                                                <action selector="onFavSelected:" destination="h7b-1d-6ej" eventType="touchUpInside" id="led-Da-09H"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

@@ -3,6 +3,7 @@ import UIKit
 import XLPagerTabStrip
 import AlamofireImage
 import Alamofire
+import SwiftMessages
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, HomeView, IndicatorInfoProvider {
     
@@ -13,7 +14,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selectedMovie: Movie?
     private let presenter = HomePresenter()
     private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
-
+    private let messagePresenter = MessagePresenter()
     
     override func viewDidLoad() {
         self.navigationController?.setToolbarHidden(true, animated: false)
@@ -66,15 +67,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell!
     }
     
-    func setFavoriteIcon(movieId: Int, button: UIButton) {
-        let isFavorite = favoritePresenter.isFavorite(movieId: movieId)
-        if (isFavorite) {
-            button.setIcon(icon: .googleMaterialDesign(.star), iconSize: 40, color: .yellow, forState: .normal)
-        } else {
-            button.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 40, color: .yellow, forState: .normal)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedMovie = movies[indexPath.row]
         performSegue(withIdentifier: "movieDetails", sender: self)
@@ -90,5 +82,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let movieDetailsController = segue.destination as! MovieDetailsViewController
             movieDetailsController.movieId = selectedMovie!.id
         }
+    }
+    
+    func setFavoriteIcon(movieId: Int, button: UIButton) {
+        let isFavorite = favoritePresenter.isFavorite(movieId: movieId)
+        if (isFavorite) {
+            button.setIcon(icon: .googleMaterialDesign(.star), iconSize: 40, color: .yellow, forState: .normal)
+        } else {
+            button.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 40, color: .yellow, forState: .normal)
+        }
+        button.tag = movieId
+    }
+    
+    @IBAction func onFavSelected(_ sender: Any) {
+        let button = sender as! UIButton
+        let movieId = button.tag
+        let result = favoritePresenter.toggleFavorite(movieId: movieId)
+        // Show the message.
+        setFavoriteIcon(movieId: movieId, button: button)
     }
 }
