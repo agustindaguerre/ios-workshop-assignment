@@ -21,7 +21,8 @@ class MoviesApi {
     static let movieDetailsUrl = "/movie/"
     static let multiSearch = "/search/multi"
     static let discover = "/discover/tv"
-
+    static let seriesDetailsUrl = "/tv/"
+    
     static func getPlayingMovies(completionHandler: @escaping ([Movie]) -> Void) {
         let url = "\(baseUrl)\(nowPlaying)"
         let parameters: Parameters = ["api_key": apiToken]
@@ -218,6 +219,32 @@ class MoviesApi {
                 }
             }
 
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                print("Data: \(utf8Text)") // original server data as UTF8 string
+            }
+        }
+    }
+    
+    static func getSeriesDetails(seriesId: Int, completionHandler: @escaping (Movie) -> Void) {
+        let url = "\(baseUrl)\(seriesDetailsUrl)\(seriesId)"
+        let parameters: Parameters = ["api_key": apiToken]
+        
+        Alamofire.request(url, parameters: parameters).responseObject { (response: DataResponse<Movie>) in
+            if let movie = response.result.value {
+                print("JSON: \(movie)") // serialized json response
+                let imagePaths = [movie.posterPath!, movie.backdropPath!]
+                self.getMoviePosters(imagePaths: imagePaths) { (images: [(String, Image)]) in
+                    images.forEach { (path, image) in
+                        if (path == movie.posterPath!) {
+                            movie.poster = image
+                        } else {
+                            movie.backdropImage = image
+                        }
+                    }
+                    completionHandler(movie);
+                }
+            }
+            
             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                 print("Data: \(utf8Text)") // original server data as UTF8 string
             }

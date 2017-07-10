@@ -24,6 +24,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     @IBOutlet weak var favButton: UIButton!
     
     var movieId: Int?
+    var seriesId: Int?
     var movie: Movie?
     
     private let movieDetailPresenter = MovieDetailsPresenter()
@@ -33,12 +34,21 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     override func viewDidLoad() {
         super.viewDidLoad()
         movieDetailPresenter.attachView(view: self)
-        movieDetailPresenter.getMovieDetails(movieId: movieId!)
+        if let movieIntId = movieId {
+            movieDetailPresenter.getMovieDetails(movieId: movieIntId)
+        } else {
+            movieDetailPresenter.getSeriesDetails(seriesId: seriesId!)
+        }
     }
     
     func endGettingMovieDetails(movie: Movie) {
         self.movie = movie
-        titleLabel.text = movie.title!
+        if let movieTitle = movie.title {
+            titleLabel.text = movieTitle
+        } else {
+            titleLabel.text = movie.name!
+        }
+        
         
         //Set poster
         
@@ -73,8 +83,13 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
             }
         })
         
+        if let runtimeMins = movie.runtime {
+            runtimeLabel.text = runtimeMins
+        } else {
+            runtimeLabel.text = movie.episodeRuntime![0]!
+        }
+        
         genresLabel.text = genresString
-        runtimeLabel.text = "\(movie.runtime!) min"
         plotLabel.text = movie.plot!
         scoreLabel.text = "\(movie.voteAverage!) / 10"
         scoreIcon.text = "⭐️"

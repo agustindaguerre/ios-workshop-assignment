@@ -21,6 +21,10 @@ class MovieDetailsPresenter {
         MoviesApi.getMovieDetails(movieId: movieId, completionHandler: self.getMovieDetailClosure);
     }
     
+    func getSeriesDetails(seriesId: Int) {
+        MoviesApi.getSeriesDetails(seriesId: seriesId, completionHandler: self.getMovieDetailClosure);
+    }
+    
     func getMovieDetailClosure(movie: Movie) {
         if let movieDetailsViewController = self.movieDetailsView {
             movieDetailsViewController.endGettingMovieDetails(movie: movie)
