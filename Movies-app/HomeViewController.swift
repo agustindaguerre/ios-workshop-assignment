@@ -17,7 +17,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     private let messagePresenter = MessagePresenter()
     
     override func viewDidLoad() {
-        self.navigationController?.setToolbarHidden(true, animated: false)
         tableViewMovies.dataSource = self
         tableViewMovies.delegate = self
         presenter.attachView(view: self)
@@ -30,7 +29,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: "Home")//, image: UIImage(named: "i_home"))
+//        let image = UIImage.init(icon: .emoji(.home), size: CGSize(width: 10, height: 10), textColor: .red)
+        return IndicatorInfo(title: "Home")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,7 +77,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.navigationController?.setToolbarHidden(false, animated: false)
         if segue.identifier == "movieDetails" {
             let movieDetailsController = segue.destination as! MovieDetailsViewController
             movieDetailsController.movieId = selectedMovie!.id
