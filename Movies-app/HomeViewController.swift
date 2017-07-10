@@ -12,9 +12,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var movies: [Movie] = []
     var selectedMovie: Movie?
     private let presenter = HomePresenter()
-    
+    private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
+
     
     override func viewDidLoad() {
+        self.navigationController?.setToolbarHidden(true, animated: false)
         tableViewMovies.dataSource = self
         tableViewMovies.delegate = self
         presenter.attachView(view: self)
@@ -39,6 +41,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if cell == nil {
             cell = HomeTableViewCell(style: .default, reuseIdentifier: cellIdentifier)
         }
+        cell!.selectionStyle = .none
         
         cell!.viewContainer.layer.cornerRadius = 2.0
         
@@ -53,10 +56,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Scale image to size disregarding aspect ratio
         let scaledImage = image.af_imageScaled(to: size)
         cell!.imagePoster.image = scaledImage
-            
-        //Set plot
-        cell!.labelPlot.text = movie.plot!
+        
+        //Set score
+        cell!.scoreLabel.text = "\(movie.voteAverage!) / 10"
+        
+        //Set votes count
+        cell!.votesCountLabel.text = "(\(movie.voteCount!) votes)"
+        setFavoriteIcon(movieId: movie.id!, button: cell!.favButton)
         return cell!
+    }
+    
+    func setFavoriteIcon(movieId: Int, button: UIButton) {
+        let isFavorite = favoritePresenter.isFavorite(movieId: movieId)
+        if (isFavorite) {
+            button.setIcon(icon: .googleMaterialDesign(.star), iconSize: 40, color: .yellow, forState: .normal)
+        } else {
+            button.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 40, color: .yellow, forState: .normal)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -69,6 +85,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.navigationController?.setToolbarHidden(false, animated: false)
         if segue.identifier == "movieDetails" {
             let movieDetailsController = segue.destination as! MovieDetailsViewController
             movieDetailsController.movieId = selectedMovie!.id

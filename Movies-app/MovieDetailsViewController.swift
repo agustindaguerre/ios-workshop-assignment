@@ -26,12 +26,13 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     var movieId: Int?
     var movie: Movie?
     
-    private let presenter = MovieDetailsPresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
+    private let movieDetailPresenter = MovieDetailsPresenter()
+    private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.attachView(view: self)
-        presenter.getMovieDetails(movieId: movieId!)
+        movieDetailPresenter.attachView(view: self)
+        movieDetailPresenter.getMovieDetails(movieId: movieId!)
     }
     
     func endGettingMovieDetails(movie: Movie) {
@@ -79,7 +80,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     }
     
     func setFavoriteIcon() {
-        let isFavorite = presenter.isFavorite(movieId: movieId!)
+        let isFavorite = favoritePresenter.isFavorite(movieId: movieId!)
         if (isFavorite) {
             favButton.setIcon(icon: .googleMaterialDesign(.star), iconSize: 30, color: .yellow, forState: .normal)
         } else {
@@ -88,7 +89,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     }
 
     @IBAction func onFavoriteSelect(_ sender: Any) {
-        let result = presenter.toggleFavorite(movieId: movieId!)
+        let result = favoritePresenter.toggleFavorite(movieId: movieId!)
         let view = MessageView.viewFromNib(layout: .CardView)
         var config = SwiftMessages.Config()
         config.dimMode = .gray(interactive: true)
