@@ -20,6 +20,7 @@ class MoviesApi {
     static let imageUrl = "https://image.tmdb.org/t/p/w500"
     static let movieDetailsUrl = "/movie/"
     static let multiSearch = "/search/multi"
+    static let discover = "/discover/tv"
 
     static func getPlayingMovies(completionHandler: @escaping ([Movie]) -> Void) {
         let url = "\(baseUrl)\(nowPlaying)"
@@ -105,6 +106,45 @@ class MoviesApi {
                         }
                     }
                     completionHandler(multiSearchItems)
+                }
+            }
+        }
+    }
+
+
+    static func getRandomTvSeries(ids: String, completionHandler: @escaping ([Serie]) -> Void) {
+        let url = "\(baseUrl)\(discover)"
+
+        let parameters: Parameters = [
+            "api_key": apiToken,
+            "with_genres": ids
+        ]
+
+        Alamofire.request(url, parameters: parameters).responseObject {
+            (response: DataResponse<SeriesResponse>) in
+            if let result = response.result.value {
+                var series = Array(result.series)
+
+                let seriesWithImage = series.filter { (serie) in serie.posterPath != nil }
+
+                let imagePaths = seriesWithImage.map { serie in return serie.posterPath! }
+
+                self.getMoviePosters(imagePaths: imagePaths) { (images: [(String, Image)]) in
+                    images.forEach {
+                        (path, image) in
+
+                        series = series.map {
+                            serie in
+
+                            if let posterPath = serie.posterPath {
+                                if (posterPath == path) {
+                                    serie.poster = image
+                                }
+                            }
+                            return serie
+                        }
+                    }
+                    completionHandler(series)
                 }
             }
         }

@@ -3,23 +3,21 @@ import Foundation
 import ObjectMapper
 import AlamofireImage
 
-class MultiSearchResponse : Mappable {
-    var multiSearchItems: [MultiSearchItem]
+class SeriesResponse : Mappable {
+    var series: [Serie]
     
     required init?(map: Map) {
-        multiSearchItems = []
+        series = []
     }
     
     func mapping(map: Map) {
-        multiSearchItems <- map["results"]
+        series <- map["results"]
     }
 }
 
-class MultiSearchItem : Mappable {
+class Serie : Mappable {
     var id: Int?
     var name: String?
-    var title: String?
-    var mediaType: String?
     var posterPath: String?
     var poster: Image?
     var summary: String?
@@ -31,9 +29,7 @@ class MultiSearchItem : Mappable {
     func mapping(map: Map) {
         id <- map["id"]
         name <- map["name"]
-        title <- map["title"]
-        mediaType <- map["media_type"]
         posterPath <- map["poster_path"]
-        summary <- map["overview"]
+        summary <- map["summary"]
     }
 }

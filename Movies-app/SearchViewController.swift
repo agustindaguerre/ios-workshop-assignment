@@ -25,7 +25,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: "Search")//, image: UIImage(named: "i_search"))
+        return IndicatorInfo(title: "Search")
     }
     
     func onSearchResultsReceived(results: [MultiSearchItem]) {
