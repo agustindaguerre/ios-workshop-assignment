@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftMessages
+import SwiftIcons
 
 class MovieDetailsViewController: UIViewController, MovieDetailsView {
     @IBOutlet weak var yearLabel: UILabel!
@@ -19,11 +21,12 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     @IBOutlet weak var plotLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreIcon: UILabel!
+    @IBOutlet weak var favButton: UIButton!
     
     var movieId: Int?
     var movie: Movie?
     
-    private let presenter = MovieDetailsPresenter()
+    private let presenter = MovieDetailsPresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +75,44 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
         plotLabel.text = movie.plot!
         scoreLabel.text = "\(movie.voteAverage!) / 10"
         scoreIcon.text = "⭐️"
+        setFavoriteIcon()
+    }
+    
+    func setFavoriteIcon() {
+        let isFavorite = presenter.isFavorite(movieId: movieId!)
+        if (isFavorite) {
+            favButton.setIcon(icon: .googleMaterialDesign(.star), iconSize: 30, color: .yellow, forState: .normal)
+        } else {
+            favButton.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 30, color: .yellow, forState: .normal)
+        }
     }
 
+    @IBAction func onFavoriteSelect(_ sender: Any) {
+        let result = presenter.toggleFavorite(movieId: movieId!)
+        let view = MessageView.viewFromNib(layout: .CardView)
+        var config = SwiftMessages.Config()
+        config.dimMode = .gray(interactive: true)
+        config.duration = .seconds(seconds: 1.5)
+        view.button = nil
+        
+        // Add a drop shadow.
+        view.configureDropShadow()
+        
+        if (result.saved) {
+            // Theme message elements with the warning style.
+            view.configureTheme(.success)
+            let iconText = "✅"
+            view.configureContent(title: "Success!", body: result.message, iconText: iconText)
+            // Specify one or more event listeners to respond to show and hide events.
+        } else {
+            // Theme message elements with the warning style.
+            view.configureTheme(.error)
+            let iconText = "❌"
+            view.configureContent(title: "Error", body: result.message, iconText: iconText)
+        }
+        
+        // Show the message.
+        setFavoriteIcon()
+        SwiftMessages.show(config: config, view: view)
+    }
 }
