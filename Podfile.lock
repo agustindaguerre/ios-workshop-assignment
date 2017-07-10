@@ -6,12 +6,16 @@ PODS:
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
   - ObjectMapper (2.2.7)
+  - SwiftIcons (1.5.1)
+  - SwiftMessages (3.1.5)
   - XLPagerTabStrip (7.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - AlamofireImage (~> 3.1)
   - AlamofireObjectMapper (~> 4.0)
+  - SwiftIcons (~> 1.5.1)
+  - SwiftMessages (~> 3.1.5)
   - XLPagerTabStrip (~> 7.0)
 
 SPEC CHECKSUMS:
@@ -19,8 +23,10 @@ SPEC CHECKSUMS:
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
+  SwiftIcons: 287593643898af5a9ef16be4b1f9cf91a436cbc7
+  SwiftMessages: bb85d7c30e85256f9367214b0907e1f409e1870a
   XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
 
-PODFILE CHECKSUM: 558c4d14426167e76160c10e89d2782fbce23583
+PODFILE CHECKSUM: 109398064fb5d7217902797efc656edd49389ee3
 
 COCOAPODS: 1.2.1

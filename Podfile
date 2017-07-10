@@ -10,6 +10,8 @@ target 'Movies-app' do
   pod 'Alamofire', '~> 4.4'
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'AlamofireImage', '~> 3.1'
+  pod 'SwiftMessages', '~> 3.1.5'
+  pod 'SwiftIcons', '~> 1.5.1'
   
   target 'Movies-appTests' do
     inherit! :search_paths

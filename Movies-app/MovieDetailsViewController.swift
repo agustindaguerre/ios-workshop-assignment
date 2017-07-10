@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftMessages
+import SwiftIcons
 
 class MovieDetailsViewController: UIViewController, MovieDetailsView {
     @IBOutlet weak var yearLabel: UILabel!
@@ -19,16 +21,19 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     @IBOutlet weak var plotLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreIcon: UILabel!
+    @IBOutlet weak var favButton: UIButton!
     
     var movieId: Int?
     var movie: Movie?
     
-    private let presenter = MovieDetailsPresenter()
+    private let movieDetailPresenter = MovieDetailsPresenter()
+    private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
+    private let messagePresenter = MessagePresenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.attachView(view: self)
-        presenter.getMovieDetails(movieId: movieId!)
+        movieDetailPresenter.attachView(view: self)
+        movieDetailPresenter.getMovieDetails(movieId: movieId!)
     }
     
     func endGettingMovieDetails(movie: Movie) {
@@ -72,6 +77,22 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
         plotLabel.text = movie.plot!
         scoreLabel.text = "\(movie.voteAverage!) / 10"
         scoreIcon.text = "⭐️"
+        setFavoriteIcon()
+    }
+    
+    func setFavoriteIcon() {
+        let isFavorite = favoritePresenter.isFavorite(movieId: movieId!)
+        if (isFavorite) {
+            favButton.setIcon(icon: .googleMaterialDesign(.star), iconSize: 30, color: .yellow, forState: .normal)
+        } else {
+            favButton.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 30, color: .yellow, forState: .normal)
+        }
     }
 
+    @IBAction func onFavoriteSelect(_ sender: Any) {
+        let result = favoritePresenter.toggleFavorite(movieId: movieId!)
+        // Show the message.
+        setFavoriteIcon()
+        messagePresenter.showMessage(success: result.saved, message: result.message)
+    }
 }
