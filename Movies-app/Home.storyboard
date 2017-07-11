@@ -22,14 +22,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now in theathers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uZ-XX-Gqo">
-                                <rect key="frame" x="26" y="30" width="323" height="24"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now in theathers 🍿" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uZ-XX-Gqo">
+                                <rect key="frame" x="26" y="30" width="323" height="27.5"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tbu-nI-eel">
-                                <rect key="frame" x="31" y="69" width="313" height="558"/>
+                                <rect key="frame" x="31" y="72.5" width="313" height="564.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" rowHeight="150" id="c84-e5-qfb" customClass="HomeTableViewCell" customModule="Movies_app" customModuleProvider="target">
@@ -124,7 +124,7 @@
                             <constraint firstItem="1uZ-XX-Gqo" firstAttribute="top" secondItem="hZd-jw-Psz" secondAttribute="bottom" constant="10" id="35u-ke-RFx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1uZ-XX-Gqo" secondAttribute="trailing" constant="10" id="CJp-Mn-RwT"/>
                             <constraint firstItem="tbu-nI-eel" firstAttribute="top" secondItem="1uZ-XX-Gqo" secondAttribute="bottom" constant="15" id="EaU-5r-nc2"/>
-                            <constraint firstItem="18O-i3-d9q" firstAttribute="top" secondItem="tbu-nI-eel" secondAttribute="bottom" constant="40" id="dxZ-GS-cJk"/>
+                            <constraint firstItem="18O-i3-d9q" firstAttribute="top" secondItem="tbu-nI-eel" secondAttribute="bottom" constant="30" id="dxZ-GS-cJk"/>
                             <constraint firstItem="tbu-nI-eel" firstAttribute="leading" secondItem="sxM-NW-OqU" secondAttribute="leadingMargin" constant="15" id="k9Q-4X-9AT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tbu-nI-eel" secondAttribute="trailing" constant="15" id="rD7-5Z-w9S"/>
                             <constraint firstItem="1uZ-XX-Gqo" firstAttribute="leading" secondItem="sxM-NW-OqU" secondAttribute="leadingMargin" constant="10" id="uRq-vc-wjo"/>
@@ -137,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrA-Tw-C8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="92"/>
+            <point key="canvasLocation" x="301.60000000000002" y="91.304347826086968"/>
         </scene>
         <!--MovieDetails-->
         <scene sceneID="ty6-Ew-wQA">

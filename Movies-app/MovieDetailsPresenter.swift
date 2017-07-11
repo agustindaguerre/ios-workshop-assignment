@@ -21,6 +21,20 @@ class MovieDetailsPresenter {
         MoviesApi.getMovieDetails(movieId: movieId, completionHandler: self.getMovieDetailClosure);
     }
     
+    func getSeriesDetails(seriesId: Int) {
+        MoviesApi.getSeriesDetails(seriesId: seriesId, completionHandler: self.getMovieDetailClosure);
+    }
+    
+    func getTrailer(showId: Int, isMovie: Bool) {
+        MoviesApi.getMovieTrailer(showId: showId, isMovie: isMovie, completionHandler: self.getTrailerClosure)
+    }
+    
+    func getTrailerClosure(trailer: Trailer) {
+        if let movieDetailsViewController = self.movieDetailsView {
+            movieDetailsViewController.endGettingTrailer(trailer: trailer)
+        }
+    }
+    
     func getMovieDetailClosure(movie: Movie) {
         if let movieDetailsViewController = self.movieDetailsView {
             movieDetailsViewController.endGettingMovieDetails(movie: movie)
@@ -30,5 +44,6 @@ class MovieDetailsPresenter {
 
 protocol MovieDetailsView {
     func endGettingMovieDetails(movie: Movie)
+    func endGettingTrailer(trailer: Trailer)
 }
 

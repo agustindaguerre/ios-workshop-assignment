@@ -16,7 +16,7 @@ class MessagePresenter {
         var config = SwiftMessages.Config()
         config.dimMode = .gray(interactive: true)
         config.duration = .seconds(seconds: 1.5)
-        view.button = nil
+        view.button?.isHidden = true
         
         // Add a drop shadow.
         view.configureDropShadow()

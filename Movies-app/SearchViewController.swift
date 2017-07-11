@@ -73,7 +73,11 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEARCH_DETAILS_SEGUE {
             let movieDetailsController = segue.destination as! MovieDetailsViewController
-            movieDetailsController.movieId = selectedItem!.id
+            if selectedItem!.mediaType == "movie" {
+                movieDetailsController.movieId = selectedItem!.id
+            } else {
+                movieDetailsController.seriesId = selectedItem!.id
+            }
         }
     }
     

@@ -21,7 +21,8 @@ class MoviesApi {
     static let movieDetailsUrl = "/movie/"
     static let multiSearch = "/search/multi"
     static let discover = "/discover/tv"
-
+    static let seriesDetailsUrl = "/tv/"
+    
     static func getPlayingMovies(completionHandler: @escaping ([Movie]) -> Void) {
         let url = "\(baseUrl)\(nowPlaying)"
         let parameters: Parameters = ["api_key": apiToken]
@@ -51,21 +52,23 @@ class MoviesApi {
             }
         }
     }
-
-    static private func getMoviePosters(imagePaths: [String], completionHandler: @escaping ([(String, Image)]) -> Void) {
-        var resultImages : [(String, Image)] = []
-        imagePaths.forEach { imagePath in
-            let url = imageUrl + imagePath
-            Alamofire.request(url).responseImage { response in
-                debugPrint(response)
-                debugPrint(response.result)
-
-                if let image = response.result.value {
-                    print("image downloaded: \(image)")
+    
+    static func getFavorites(favorites: [Favorite], completionHandler: @escaping ([Movie]) -> Void) {
+        var resultShows : [Movie] = []
+        favorites.forEach { favorite in
+            if (favorite.isMovie) {
+                self.getMovieDetails(movieId: Int(favorite.movieId)) { (movie: Movie) in
+                    resultShows.append(movie)
+                    if (resultShows.count == favorites.count) {
+                        completionHandler(resultShows)
+                    }
                 }
-                resultImages.append((imagePath, response.result.value!))
-                if (resultImages.count == imagePaths.count) {
-                    completionHandler(resultImages)
+            } else {
+                self.getSeriesDetails(seriesId: Int(favorite.movieId)) { (movie: Movie) in
+                    resultShows.append(movie)
+                    if (resultShows.count == favorites.count) {
+                        completionHandler(resultShows)
+                    }
                 }
             }
         }
@@ -220,6 +223,69 @@ class MoviesApi {
 
             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                 print("Data: \(utf8Text)") // original server data as UTF8 string
+            }
+        }
+    }
+    
+    static func getSeriesDetails(seriesId: Int, completionHandler: @escaping (Movie) -> Void) {
+        let url = "\(baseUrl)\(seriesDetailsUrl)\(seriesId)"
+        let parameters: Parameters = ["api_key": apiToken]
+        
+        Alamofire.request(url, parameters: parameters).responseObject { (response: DataResponse<Movie>) in
+            if let movie = response.result.value {
+                print("JSON: \(movie)") // serialized json response
+                let imagePaths = [movie.posterPath!, movie.backdropPath!]
+                self.getMoviePosters(imagePaths: imagePaths) { (images: [(String, Image)]) in
+                    images.forEach { (path, image) in
+                        if (path == movie.posterPath!) {
+                            movie.poster = image
+                        } else {
+                            movie.backdropImage = image
+                        }
+                    }
+                    completionHandler(movie);
+                }
+            }
+            
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                print("Data: \(utf8Text)") // original server data as UTF8 string
+            }
+        }
+    }
+    
+    static func getMovieTrailer(showId: Int, isMovie: Bool, completionHandler: @escaping (Trailer) -> Void) {
+        var url: String
+        if (isMovie) {
+            url = "\(baseUrl)\(movieDetailsUrl)\(showId)/videos"
+        } else {
+            url = "\(baseUrl)\(seriesDetailsUrl)\(showId)/videos"
+        }
+        let parameters: Parameters = ["api_key": apiToken]
+        
+        Alamofire.request(url, parameters: parameters).responseObject { (response: DataResponse<TrailersResponse>) in
+            if let trailerResponse = response.result.value {
+                print("JSON: \(trailerResponse)") // serialized json response
+                let trailer = trailerResponse.trailers.first
+                completionHandler(trailer!)
+            }
+        }
+    }
+    
+    static private func getMoviePosters(imagePaths: [String], completionHandler: @escaping ([(String, Image)]) -> Void) {
+        var resultImages : [(String, Image)] = []
+        imagePaths.forEach { imagePath in
+            let url = imageUrl + imagePath
+            Alamofire.request(url).responseImage { response in
+                debugPrint(response)
+                debugPrint(response.result)
+                
+                if let image = response.result.value {
+                    print("image downloaded: \(image)")
+                }
+                resultImages.append((imagePath, response.result.value!))
+                if (resultImages.count == imagePaths.count) {
+                    completionHandler(resultImages)
+                }
             }
         }
     }

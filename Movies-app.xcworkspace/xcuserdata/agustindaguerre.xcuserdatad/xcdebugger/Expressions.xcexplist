@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "static MoviesApi.getFavorites(favorites : [Favorite], completionHandler : ([Movie]) -&gt; ()) -&gt; ():MoviesApi.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "favorites.first.movieId">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "HomeViewController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:HomeViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -10,14 +18,6 @@
             </PersistentString>
             <PersistentString
                value = "data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "HomeViewController.viewDidLoad() -&gt; ():HomeViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "tableViewMovies">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -37,6 +37,25 @@
             </PersistentString>
             <PersistentString
                value = "movies[0].posterPath!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static MoviesApi.(getSeriesDetails(seriesId : Int, completionHandler : (Movie) -&gt; ()) -&gt; ()).(closure #1):MoviesApi.swift">
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.viewDidLoad() -&gt; ():HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableViewMovies">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static MoviesApi.(getFavorites(favorites : [Favorite], completionHandler : ([Movie]) -&gt; ()) -&gt; ()).(closure #1).(closure #1):MoviesApi.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "resultShows.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
