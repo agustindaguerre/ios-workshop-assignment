@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="138"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aEx-K8-LbV" id="1lb-GE-6Vw">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="137"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="137.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RWy-JZ-xax">
@@ -108,14 +108,42 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="QCa-dS-YAU"/>
                     <connections>
                         <outlet property="PickerViewOne" destination="k3d-ZQ-CIz" id="VDW-zy-tQX"/>
                         <outlet property="PickerViewThree" destination="cFe-yb-Vmk" id="UZ3-d9-3Iv"/>
                         <outlet property="PickerViewTwo" destination="3gk-ZK-Yrs" id="m0G-Va-zjy"/>
                         <outlet property="tableView" destination="HHE-EA-OGH" id="wXB-Od-UTd"/>
+                        <segue destination="bZa-Xd-0Fg" kind="show" identifier="randomDetails" id="Mz1-ES-aO2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D78-g7-L0S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1044" y="139.880059970015"/>
+        </scene>
+        <!--MovieDetails-->
+        <scene sceneID="dRf-2Y-YGt">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MovieDetails" id="bZa-Xd-0Fg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cyr-kd-qlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1617.5999999999999" y="39.580209895052477"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hx8-zz-of3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a7m-bz-uS3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ls1-0S-NcO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tY4-VL-uvt" kind="relationship" relationship="rootViewController" id="k74-0C-ste"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Vi-fz-b2U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="104.8" y="139.880059970015"/>
         </scene>

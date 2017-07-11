@@ -4,6 +4,10 @@ import XLPagerTabStrip
 
 class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, IndicatorInfoProvider {
     
+    let RANDOM_SERIE_SEGUE = "randomDetails"
+    
+    var selectedSerie: Serie?
+    
     let FIRST_PICKER = 1
     let SECOND_PICKER = 2
     let THIRD_PICKER = 3
@@ -124,5 +128,17 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         label.text = currentSerie.name!
         
         return cell!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == RANDOM_SERIE_SEGUE {
+            let movieDetailsController = segue.destination as! MovieDetailsViewController
+            movieDetailsController.movieId = selectedSerie!.id
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectedSerie = series[indexPath.row]
+        performSegue(withIdentifier: RANDOM_SERIE_SEGUE, sender: self)
     }
 }
