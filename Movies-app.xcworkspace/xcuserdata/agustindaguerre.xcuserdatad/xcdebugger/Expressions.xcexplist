@@ -19,6 +19,9 @@
             <PersistentString
                value = "data">
             </PersistentString>
+            <PersistentString
+               value = "movies.count">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -48,6 +51,14 @@
          <PersistentStrings>
             <PersistentString
                value = "tableViewMovies">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SearchViewController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:SearchViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cellIdentifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -4,19 +4,26 @@ import XLPagerTabStrip
 import Alamofire
 import DZNEmptyDataSet
 
-class SearchViewController: UITableViewController, UISearchBarDelegate, IndicatorInfoProvider {
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, IndicatorInfoProvider {
+    let cellIdentifier = "searchCell"
     var items = [MultiSearchItem]()
     
+    @IBOutlet weak var resultsTable: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     let SEARCH_DETAILS_SEGUE = "searchDetails"
+    private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
     
     var selectedItem: MultiSearchItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        resultsTable.dataSource = self
+        resultsTable.delegate = self
+        searchBar.delegate = self
+        searchBar.showsScopeBar = true
         self.prepareEmptyDataSet()
-        self.tableView.contentInset = UIEdgeInsets(top: 70, left: 30, bottom: 30, right: 30)
+//        self.tableView.contentInset = UIEdgeInsets(top: 70, left: 30, bottom: 30, right: 30)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -36,38 +43,64 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
     
     func onSearchResultsReceived(results: [MultiSearchItem]) {
         items = results
-        self.tableView.reloadData()
+        resultsTable.reloadData()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = resultsTable.dequeueReusableCell(withIdentifier: cellIdentifier) as? HomeTableViewCell
+        if cell == nil {
+            cell = HomeTableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+        }
+        cell!.selectionStyle = .none
         
+        cell!.viewContainer.layer.cornerRadius = 2.0
         
-        let currentItem = items[indexPath.row]
-        
-        let imageView = cell?.viewWithTag(2) as! UIImageView
-        
-        if let poster = currentItem.poster {
-            imageView.image = poster
+        let item = items[indexPath.row]
+        // Set title
+        if let movieTitle = item.title {
+            cell!.labelTitle.text = movieTitle
         }
         
-        let label = cell?.viewWithTag(1) as! UILabel
+        if let seriesTitle = item.name {
+            cell!.labelTitle.text = seriesTitle
+        }
         
-        let summaryLabel = cell?.viewWithTag(3) as! UILabel
-        
-        summaryLabel.text = currentItem.summary!
-        
-        if currentItem.mediaType == "movie" {
-            label.text = currentItem.title!
+        //Set image
+        if let image = item.poster {
+            let size = CGSize(width: 90, height: 115)
+            
+            // Scale image to size disregarding aspect ratio
+            let scaledImage = image.af_imageScaled(to: size)
+            cell!.imagePoster.image = scaledImage
         } else {
-            label.text = currentItem.name!
+            cell!.imagePoster.image = UIImage.init(icon: .emoji(.television), size: CGSize(width: 30, height: 30))
         }
         
+        //Set score
+        cell!.scoreLabel.text = "\(item.voteAverage!) / 10"
+        
+        //Set votes count
+        cell!.votesCountLabel.text = "(\(item.voteCount!) votes)"
+        setFavoriteIcon(movieId: item.id!, button: cell!.favButton)
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150;
+    }
+    
+    func setFavoriteIcon(movieId: Int, button: UIButton) {
+        let isFavorite = favoritePresenter.isFavorite(movieId: movieId)
+        if (isFavorite) {
+            button.setIcon(icon: .googleMaterialDesign(.star), iconSize: 40, color: .yellow, forState: .normal)
+        } else {
+            button.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 40, color: .yellow, forState: .normal)
+        }
+        button.tag = movieId
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,9 +114,21 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedItem = items[indexPath.row]
         performSegue(withIdentifier: SEARCH_DETAILS_SEGUE, sender: self)
+    }
+    
+    @IBAction func favButton(_ sender: Any) {
+        let button = sender as! UIButton
+        let movieId = button.tag
+        let favSelectedMovie = items.first { movie in
+            return movie.id == movieId
+        }
+        let isMovie = favSelectedMovie!.name == nil
+        favoritePresenter.toggleFavorite(movieId: movieId, isMovie: isMovie)
+        // Show the message.
+        setFavoriteIcon(movieId: movieId, button: button)
     }
 }
 
@@ -99,8 +144,8 @@ extension SearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     
     func prepareEmptyDataSet() {
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
-        self.tableView.tableFooterView = UIView()
+        resultsTable.emptyDataSetSource = self
+        resultsTable.emptyDataSetDelegate = self
+        resultsTable.tableFooterView = UIView()
     }
 }
