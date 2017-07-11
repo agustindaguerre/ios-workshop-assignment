@@ -2,11 +2,14 @@
 import UIKit
 import XLPagerTabStrip
 
-class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, IndicatorInfoProvider {
+class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, IndicatorInfoProvider {
     
     let FIRST_PICKER = 1
     let SECOND_PICKER = 2
     let THIRD_PICKER = 3
+    let IMAGE = 4
+    let TITLE = 5
+    let SUMMARY = 6
     
     let ids = ["10759", "16", "35", "80", "99", "18", "10751", "10762", "9648", "10763", "10764", "10765", "10766", "10767", "10768", "37"]
     
@@ -33,9 +36,13 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         "Western"
     ]
     
+    var series = [Serie]()
+    
     @IBOutlet weak var PickerViewOne: UIPickerView!
     @IBOutlet weak var PickerViewTwo: UIPickerView!
     @IBOutlet weak var PickerViewThree: UIPickerView!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +60,12 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBAction func SearchRandom(_ sender: Any) {
         let ids = "\(self.firstId),\(self.secondId),\(self.thirdId)"
         
-        MoviesApi.getRandomTvSeries(ids: ids, completionHandler: self.callback)
+        MoviesApi.getRandomTvSeries(ids: ids, completionHandler: self.onReceiveRandomSeries)
     }
     
-    func callback(series: [Serie]) {
-        print(series.count)
+    func onReceiveRandomSeries(series: [Serie]) {
+        self.series = series
+        tableView.reloadData()
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -84,5 +92,31 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return series.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        
+        let currentSerie = series[indexPath.row]
+        
+        let imageView = cell?.viewWithTag(IMAGE) as! UIImageView
+        
+        if let poster = currentSerie.poster {
+            imageView.image = poster
+        }
+        
+        let label = cell?.viewWithTag(TITLE) as! UILabel
+        
+        let summary = cell?.viewWithTag(SUMMARY) as! UILabel
+        
+        summary.text = currentSerie.summary!
+        
+        label.text = currentSerie.name!
+        
+        return cell!
     }
 }
