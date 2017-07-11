@@ -30,6 +30,6 @@ class Serie : Mappable {
         id <- map["id"]
         name <- map["name"]
         posterPath <- map["poster_path"]
-        summary <- map["summary"]
+        summary <- map["overview"]
     }
 }

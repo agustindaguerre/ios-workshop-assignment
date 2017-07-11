@@ -15,7 +15,7 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var firstId = "10759"
     var secondId = "10759"
-    var thirdId = "19759"
+    var thirdId = "10759"
     
     let genres = [
         "Action & Adventures",
@@ -55,6 +55,9 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         PickerViewThree.delegate = self
         PickerViewThree.dataSource = self
+        
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     @IBAction func SearchRandom(_ sender: Any) {
@@ -65,6 +68,7 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func onReceiveRandomSeries(series: [Serie]) {
         self.series = series
+        print(self.series.toJSONString(prettyPrint: true) ?? "vacio")
         tableView.reloadData()
     }
     
@@ -111,9 +115,11 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         let label = cell?.viewWithTag(TITLE) as! UILabel
         
-        let summary = cell?.viewWithTag(SUMMARY) as! UILabel
+        let summaryLabel = cell?.viewWithTag(SUMMARY) as! UILabel
         
-        summary.text = currentSerie.summary!
+        if let summary = currentSerie.summary {
+            summaryLabel.text = summary
+        }
         
         label.text = currentSerie.name!
         
