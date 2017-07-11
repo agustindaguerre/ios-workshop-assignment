@@ -8,6 +8,10 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    let SEARCH_DETAILS_SEGUE = "searchDetails"
+    
+    var selectedItem: MultiSearchItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.contentInset = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
@@ -62,5 +66,17 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
         }
         
         return cell!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SEARCH_DETAILS_SEGUE {
+            let movieDetailsController = segue.destination as! MovieDetailsViewController
+            movieDetailsController.movieId = selectedItem!.id
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedItem = items[indexPath.row]
+        performSegue(withIdentifier: SEARCH_DETAILS_SEGUE, sender: self)
     }
 }
