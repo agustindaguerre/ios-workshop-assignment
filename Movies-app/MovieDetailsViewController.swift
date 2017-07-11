@@ -67,9 +67,15 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
             backgroundImage.image = scaledBckImage
         }
         
-        let releaseDate = movie.releaseDate!
-        let releaseYear = releaseDate.characters.split(separator: "-").map(String.init).first!
-        yearLabel.text = "(\(releaseYear))"
+        if let releaseDate = movie.releaseDate {
+            let releaseYear = releaseDate.characters.split(separator: "-").map(String.init).first!
+            yearLabel.text = "(\(releaseYear))"
+        }
+        
+        if let firstAirDate = movie.firstAirDate {
+            let releaseYear = firstAirDate.characters.split(separator: "-").map(String.init).first!
+            yearLabel.text = "(\(releaseYear))"
+        }
         
         let genres = movie.genres.map { genre in
             genre.name!
@@ -97,7 +103,16 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     }
     
     func setFavoriteIcon() {
-        let isFavorite = favoritePresenter.isFavorite(movieId: movieId!)
+        var isFavorite = false
+        
+        if let movieIdInt = movieId {
+            isFavorite = favoritePresenter.isFavorite(movieId: movieIdInt)
+        }
+        
+        if let seriesIdInt = seriesId {
+            isFavorite = favoritePresenter.isFavorite(movieId: seriesIdInt)
+        }
+        
         if (isFavorite) {
             favButton.setIcon(icon: .googleMaterialDesign(.star), iconSize: 30, color: .yellow, forState: .normal)
         } else {
@@ -112,10 +127,9 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
         if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
             if let whatsappURL = NSURL(string: urlString) {
                 if UIApplication.shared.canOpenURL(whatsappURL as URL) {
-//                    UIApplication.shared.openURL(whatsappURL as URL)
                     UIApplication.shared.open(whatsappURL as URL, options: [:])
                 } else {
-                    let alert = UIAlertController(title: "Alert", message: "Whatsapp not installed", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Oops!", message: "Whatsapp not installed", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }

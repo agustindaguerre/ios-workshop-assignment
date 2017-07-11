@@ -136,7 +136,7 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == RANDOM_SERIE_SEGUE {
             let movieDetailsController = segue.destination as! MovieDetailsViewController
-            movieDetailsController.movieId = selectedSerie!.id
+            movieDetailsController.seriesId = selectedSerie!.id
         }
     }
     

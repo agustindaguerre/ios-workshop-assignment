@@ -56,7 +56,13 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         
         let movie = movies[indexPath.row]
         // Set title
-        cell!.labelTitle.text = movie.title!
+        if let movieTitle = movie.title {
+            cell!.labelTitle.text = movieTitle
+        }
+        
+        if let seriesName = movie.name {
+            cell!.labelTitle.text = seriesName
+        }
         
         //Set image
         let image = movie.poster!

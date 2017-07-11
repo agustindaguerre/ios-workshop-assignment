@@ -33,6 +33,7 @@ class Movie : Mappable {
     var plot: String?
     var runtime: Int?
     var releaseDate: String?
+    var firstAirDate: String?
     var genres: [Genre]
     var voteAverage: Float?
     var voteCount: Int?
@@ -56,6 +57,7 @@ class Movie : Mappable {
         voteCount <- map["vote_count"]
         backdropPath <- map["backdrop_path"]
         episodeRuntime <- map["episode_run_time"]
+        firstAirDate <- map["first_air_date"]
     }
 }
 
