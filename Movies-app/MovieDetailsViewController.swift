@@ -41,20 +41,21 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
         titleLabel.text = movie.title!
         
         //Set poster
-        let image = movie.poster!
-        let size = CGSize(width: 133, height: 184)
         
-        // Scale image to size disregarding aspect ratio
-        let scaledImage = image.af_imageScaled(to: size)
-        posterImage.image = scaledImage
+        if let image = movie.poster {
+            let size = CGSize(width: 133, height: 184)
+            
+            let scaledImage = image.af_imageScaled(to: size)
+            posterImage.image = scaledImage
+        }
         
         //Set bakcground
-        let bckImage = movie.backdropImage!
-        let bckSize = backgroundImage.frame.size
         
-        // Scale image to size disregarding aspect ratio
-        let scaledBckImage = bckImage.af_imageScaled(to: bckSize)
-        backgroundImage.image = scaledBckImage
+        if let backdropImage = movie.backdropImage {
+            let bckSize = backgroundImage.frame.size
+            let scaledBckImage = backdropImage.af_imageScaled(to: bckSize)
+            backgroundImage.image = scaledBckImage
+        }
         
         let releaseDate = movie.releaseDate!
         let releaseYear = releaseDate.characters.split(separator: "-").map(String.init).first!
