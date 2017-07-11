@@ -253,6 +253,24 @@ class MoviesApi {
         }
     }
     
+    static func getMovieTrailer(showId: Int, isMovie: Bool, completionHandler: @escaping (Trailer) -> Void) {
+        var url: String
+        if (isMovie) {
+            url = "\(baseUrl)\(movieDetailsUrl)\(showId)/videos"
+        } else {
+            url = "\(baseUrl)\(seriesDetailsUrl)\(showId)/videos"
+        }
+        let parameters: Parameters = ["api_key": apiToken]
+        
+        Alamofire.request(url, parameters: parameters).responseObject { (response: DataResponse<TrailersResponse>) in
+            if let trailerResponse = response.result.value {
+                print("JSON: \(trailerResponse)") // serialized json response
+                let trailer = trailerResponse.trailers.first
+                completionHandler(trailer!)
+            }
+        }
+    }
+    
     static private func getMoviePosters(imagePaths: [String], completionHandler: @escaping ([(String, Image)]) -> Void) {
         var resultImages : [(String, Image)] = []
         imagePaths.forEach { imagePath in

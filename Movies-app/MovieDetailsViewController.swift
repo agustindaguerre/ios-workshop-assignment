@@ -104,7 +104,33 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
             favButton.setIcon(icon: .googleMaterialDesign(.starBorder), iconSize: 30, color: .yellow, forState: .normal)
         }
     }
+    
+    func endGettingTrailer(trailer: Trailer) {
+        let urlString = "https://www.youtube.com/watch?v=\(trailer.key!)"
+        let urlWhats = "whatsapp://send?text=\(urlString)"
+        
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
+            if let whatsappURL = NSURL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL as URL) {
+//                    UIApplication.shared.openURL(whatsappURL as URL)
+                    UIApplication.shared.open(whatsappURL as URL, options: [:])
+                } else {
+                    let alert = UIAlertController(title: "Alert", message: "Whatsapp not installed", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 
+    @IBAction func shareLink(_ sender: Any) {
+        if let movieIdInt = movieId {
+            movieDetailPresenter.getTrailer(showId: movieIdInt, isMovie: true)
+        } else {
+            movieDetailPresenter.getTrailer(showId: seriesId!, isMovie: false)
+        }
+    }
+    
     @IBAction func onFavoriteSelect(_ sender: Any) {
         var result : (saved: Bool, message: String)
         if let movieIdInt = movieId {
