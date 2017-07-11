@@ -2,6 +2,7 @@
 import UIKit
 import XLPagerTabStrip
 import DZNEmptyDataSet
+import Darwin
 
 class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, IndicatorInfoProvider {
     
@@ -41,6 +42,15 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         "Western"
     ]
     
+    let sortParams = [
+        "vote_average.desc",
+        "vote_average.asc",
+        "first_air_date.desc",
+        "first_air_date.asc",
+        "popularity.desc",
+        "popularity.asc"
+    ]
+    
     var series = [Serie]()
     
     @IBOutlet weak var PickerViewOne: UIPickerView!
@@ -70,7 +80,10 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBAction func SearchRandom(_ sender: Any) {
         let ids = "\(self.firstId),\(self.secondId),\(self.thirdId)"
         
-        MoviesApi.getRandomTvSeries(ids: ids, completionHandler: self.onReceiveRandomSeries)
+        let randomNumber = Int(arc4random_uniform(6))
+        let randomSorting = sortParams[randomNumber]
+        
+        MoviesApi.getRandomTvSeries(ids: ids, sortedBy: randomSorting, completionHandler: self.onReceiveRandomSeries)
     }
     
     func onReceiveRandomSeries(series: [Serie]) {
@@ -140,7 +153,7 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSerie = series[indexPath.row]
         performSegue(withIdentifier: RANDOM_SERIE_SEGUE, sender: self)
     }
