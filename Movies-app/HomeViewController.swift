@@ -16,6 +16,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     private let favoritePresenter = FavoritePresenter(appDelegateParam: UIApplication.shared.delegate as? AppDelegate)
     private let messagePresenter = MessagePresenter()
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.getPlayingMovies()
+    }
+
     override func viewDidLoad() {
         tableViewMovies.dataSource = self
         tableViewMovies.delegate = self
@@ -96,7 +100,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func onFavSelected(_ sender: Any) {
         let button = sender as! UIButton
         let movieId = button.tag
-        let result = favoritePresenter.toggleFavorite(movieId: movieId)
+        favoritePresenter.toggleFavorite(movieId: movieId, isMovie: true)
         // Show the message.
         setFavoriteIcon(movieId: movieId, button: button)
     }

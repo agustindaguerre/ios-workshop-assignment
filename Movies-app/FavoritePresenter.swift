@@ -14,13 +14,19 @@ class FavoritePresenter {
     private let entityType = "Favorite"
     private var appDelegate: AppDelegate
     private var managedContext: NSManagedObjectContext
+    private var favoritesView : FavoritesView?
+    
     
     init(appDelegateParam: AppDelegate?) {
         appDelegate = appDelegateParam!
         managedContext = appDelegate.persistentContainer.viewContext
     }
     
-    func toggleFavorite(movieId: Int) -> (saved: Bool, message: String) {
+    func attachView(view: FavoritesView) {
+        favoritesView = view
+    }
+    
+    func toggleFavorite(movieId: Int, isMovie: Bool) -> (saved: Bool, message: String) {
         var result = true
         var message = ""
         let favoriteResult = getFavorite(movieId: movieId)
@@ -33,6 +39,7 @@ class FavoritePresenter {
             let favorite = NSManagedObject(entity: entity, insertInto: managedContext)
             
             favorite.setValue(movieId, forKeyPath: "movieId")
+            favorite.setValue(isMovie, forKeyPath: "isMovie")
             message = "Added to favorites"
         }
         
@@ -72,5 +79,33 @@ class FavoritePresenter {
         }
         return result
     }
+    
+    func getFavorites() -> [Favorite] {
+        // fetch request
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityType)
+        var favorites: [Favorite] = []
+        do {
+            favorites = try managedContext.fetch(fetchRequest) as! [Favorite]
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return favorites
+    }
+    
+    func getFavoriteMovies() {
+        let favorites = self.getFavorites()
+        MoviesApi.getFavorites(favorites: favorites, completionHandler: self.getFavoriteMoviesClosure);
+    }
+    
+    func getFavoriteMoviesClosure(movies: [Movie]) {
+        if let favoritesViewController = self.favoritesView {
+            favoritesViewController.endGettingFavorites(movies: movies)
+        }
+    }
+
+}
+
+protocol FavoritesView {
+    func endGettingFavorites(movies: [Movie])
 }
 

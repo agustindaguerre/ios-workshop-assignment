@@ -84,9 +84,9 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
         })
         
         if let runtimeMins = movie.runtime {
-            runtimeLabel.text = runtimeMins
+            runtimeLabel.text = "\(runtimeMins) mins"
         } else {
-            runtimeLabel.text = movie.episodeRuntime![0]!
+            runtimeLabel.text = "\(movie.episodeRuntime[0]!) mins"
         }
         
         genresLabel.text = genresString
@@ -106,7 +106,12 @@ class MovieDetailsViewController: UIViewController, MovieDetailsView {
     }
 
     @IBAction func onFavoriteSelect(_ sender: Any) {
-        let result = favoritePresenter.toggleFavorite(movieId: movieId!)
+        var result : (saved: Bool, message: String)
+        if let movieIdInt = movieId {
+            result = favoritePresenter.toggleFavorite(movieId: movieIdInt, isMovie: true)
+        } else {
+            result = favoritePresenter.toggleFavorite(movieId: seriesId!, isMovie: false)
+        }
         // Show the message.
         setFavoriteIcon()
         messagePresenter.showMessage(success: result.saved, message: result.message)

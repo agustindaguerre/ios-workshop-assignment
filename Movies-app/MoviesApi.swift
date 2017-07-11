@@ -52,21 +52,23 @@ class MoviesApi {
             }
         }
     }
-
-    static private func getMoviePosters(imagePaths: [String], completionHandler: @escaping ([(String, Image)]) -> Void) {
-        var resultImages : [(String, Image)] = []
-        imagePaths.forEach { imagePath in
-            let url = imageUrl + imagePath
-            Alamofire.request(url).responseImage { response in
-                debugPrint(response)
-                debugPrint(response.result)
-
-                if let image = response.result.value {
-                    print("image downloaded: \(image)")
+    
+    static func getFavorites(favorites: [Favorite], completionHandler: @escaping ([Movie]) -> Void) {
+        var resultShows : [Movie] = []
+        favorites.forEach { favorite in
+            if (favorite.isMovie) {
+                self.getMovieDetails(movieId: Int(favorite.movieId)) { (movie: Movie) in
+                    resultShows.append(movie)
+                    if (resultShows.count == favorites.count) {
+                        completionHandler(resultShows)
+                    }
                 }
-                resultImages.append((imagePath, response.result.value!))
-                if (resultImages.count == imagePaths.count) {
-                    completionHandler(resultImages)
+            } else {
+                self.getSeriesDetails(seriesId: Int(favorite.movieId)) { (movie: Movie) in
+                    resultShows.append(movie)
+                    if (resultShows.count == favorites.count) {
+                        completionHandler(resultShows)
+                    }
                 }
             }
         }
@@ -247,6 +249,25 @@ class MoviesApi {
             
             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                 print("Data: \(utf8Text)") // original server data as UTF8 string
+            }
+        }
+    }
+    
+    static private func getMoviePosters(imagePaths: [String], completionHandler: @escaping ([(String, Image)]) -> Void) {
+        var resultImages : [(String, Image)] = []
+        imagePaths.forEach { imagePath in
+            let url = imageUrl + imagePath
+            Alamofire.request(url).responseImage { response in
+                debugPrint(response)
+                debugPrint(response.result)
+                
+                if let image = response.result.value {
+                    print("image downloaded: \(image)")
+                }
+                resultImages.append((imagePath, response.result.value!))
+                if (resultImages.count == imagePaths.count) {
+                    completionHandler(resultImages)
+                }
             }
         }
     }

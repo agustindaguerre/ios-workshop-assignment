@@ -40,6 +40,7 @@ class Movie : Mappable {
 
     required init?(map: Map) {
         genres = []
+        episodeRuntime = []
     }
     
     func mapping(map: Map) {
