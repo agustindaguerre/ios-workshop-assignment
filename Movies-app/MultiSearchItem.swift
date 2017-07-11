@@ -23,6 +23,8 @@ class MultiSearchItem : Mappable {
     var posterPath: String?
     var poster: Image?
     var summary: String?
+    var voteAverage: Float?
+    var voteCount: Int?
     
     required init?(map: Map) {
         
@@ -35,5 +37,7 @@ class MultiSearchItem : Mappable {
         mediaType <- map["media_type"]
         posterPath <- map["poster_path"]
         summary <- map["overview"]
+        voteAverage <- map["vote_average"]
+        voteCount <- map["vote_count"]
     }
 }
