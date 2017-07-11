@@ -1,8 +1,9 @@
 
 import UIKit
 import XLPagerTabStrip
+import DZNEmptyDataSet
 
-class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource, FavoritesView {
+class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableViewDelegate, UITableViewDataSource, FavoritesView, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     @IBOutlet weak var tableViewFavorites: UITableView!
     
@@ -19,7 +20,16 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
     override func viewDidLoad() {
         tableViewFavorites.dataSource = self
         tableViewFavorites.delegate = self
+        tableViewFavorites.emptyDataSetSource = self
+        tableViewFavorites.emptyDataSetDelegate = self
         favoritePresenter.attachView(view: self)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let font = UIFont(name: "Helvetica", size: 16)
+        let color = UIColor.white
+        let attr = [NSFontAttributeName: font, NSStrokeColorAttributeName: color]
+        return NSAttributedString(string: "No movies or series added to favorites", attributes: attr)
     }
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
@@ -67,7 +77,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedMovie = movies[indexPath.row]
-        performSegue(withIdentifier: "movieDetails", sender: self)
+        performSegue(withIdentifier: "favoriteDetails", sender: self)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -94,6 +104,7 @@ class FavoritesViewController: UIViewController, IndicatorInfoProvider, UITableV
         }
         button.tag = movieId
     }
+    
     @IBAction func onFavSelected(_ sender: Any) {
         let button = sender as! UIButton
         let movieId = button.tag

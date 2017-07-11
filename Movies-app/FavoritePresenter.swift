@@ -94,7 +94,11 @@ class FavoritePresenter {
     
     func getFavoriteMovies() {
         let favorites = self.getFavorites()
-        MoviesApi.getFavorites(favorites: favorites, completionHandler: self.getFavoriteMoviesClosure);
+        if (favorites.isEmpty) {
+            self.getFavoriteMoviesClosure(movies: [])
+        } else {
+            MoviesApi.getFavorites(favorites: favorites, completionHandler: self.getFavoriteMoviesClosure)
+        }
     }
     
     func getFavoriteMoviesClosure(movies: [Movie]) {
