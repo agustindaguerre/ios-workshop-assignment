@@ -195,7 +195,17 @@ class MoviesApi {
         Alamofire.request(url, parameters: parameters).responseObject { (response: DataResponse<Movie>) in
             if let movie = response.result.value {
                 print("JSON: \(movie)") // serialized json response
-                let imagePaths = [movie.posterPath!, movie.backdropPath!]
+                
+                var imagePaths : [String] = []
+                
+                if let posterPath = movie.posterPath {
+                    imagePaths.append(posterPath)
+                }
+                
+                if let backdropPath = movie.backdropPath {
+                    imagePaths.append(backdropPath)
+                }
+                
                 self.getMoviePosters(imagePaths: imagePaths) { (images: [(String, Image)]) in
                     images.forEach { (path, image) in
                         if (path == movie.posterPath!) {
