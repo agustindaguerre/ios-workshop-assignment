@@ -12,6 +12,7 @@ target 'Movies-app' do
   pod 'AlamofireImage', '~> 3.1'
   pod 'SwiftMessages', '~> 3.1.5'
   pod 'SwiftIcons', '~> 1.5.1'
+  pod 'DZNEmptyDataSet', '~> 1.8.1'
   
   target 'Movies-appTests' do
     inherit! :search_paths

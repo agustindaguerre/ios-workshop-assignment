@@ -2,6 +2,7 @@
 import UIKit
 import XLPagerTabStrip
 import Alamofire
+import DZNEmptyDataSet
 
 class SearchViewController: UITableViewController, UISearchBarDelegate, IndicatorInfoProvider {
     var items = [MultiSearchItem]()
@@ -14,7 +15,8 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.contentInset = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
+        self.prepareEmptyDataSet()
+        self.tableView.contentInset = UIEdgeInsets(top: 70, left: 30, bottom: 30, right: 30)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -78,5 +80,23 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, Indicato
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedItem = items[indexPath.row]
         performSegue(withIdentifier: SEARCH_DETAILS_SEGUE, sender: self)
+    }
+}
+
+extension SearchViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "i_search")
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)]
+        
+        return NSAttributedString(string: "No recent searchs", attributes: attributes)
+    }
+    
+    func prepareEmptyDataSet() {
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.tableFooterView = UIView()
     }
 }

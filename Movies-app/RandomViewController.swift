@@ -1,6 +1,7 @@
 
 import UIKit
 import XLPagerTabStrip
+import DZNEmptyDataSet
 
 class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, IndicatorInfoProvider {
     
@@ -62,6 +63,8 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        self.prepareEmptyDataSet()
     }
     
     @IBAction func SearchRandom(_ sender: Any) {
@@ -140,5 +143,22 @@ class RandomViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         selectedSerie = series[indexPath.row]
         performSegue(withIdentifier: RANDOM_SERIE_SEGUE, sender: self)
+    }
+}
+
+extension RandomViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "i_random")
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)]
+        return NSAttributedString(string: "Select categories to pick a random TV Show", attributes: attributes)
+    }
+    
+    func prepareEmptyDataSet() {
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.emptyDataSetSource = self
+        self.tableView.tableFooterView = UIView()
     }
 }
