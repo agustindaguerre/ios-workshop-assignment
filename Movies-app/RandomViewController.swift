@@ -173,5 +173,6 @@ extension RandomViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         self.tableView.emptyDataSetDelegate = self
         self.tableView.emptyDataSetSource = self
         self.tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView?.backgroundColor = UIColor.lightGray
     }
 }
